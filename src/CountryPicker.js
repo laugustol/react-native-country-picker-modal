@@ -97,7 +97,7 @@ export default class CountryPicker extends Component {
 
   static renderEmojiFlag(cca2, emojiStyle) {
     return (
-      <Text style={[countryPickerStyles.emojiFlag, emojiStyle]} allowFontScaling={false}>
+      <Text style={[styles.emojiFlag, emojiStyle]} allowFontScaling={false}>
         {cca2 !== '' && countries[cca2.toUpperCase()] ? (
           <Emoji name={countries[cca2.toUpperCase()].flag} />
         ) : null}
@@ -108,7 +108,7 @@ export default class CountryPicker extends Component {
   static renderImageFlag(cca2, imageStyle) {
     return cca2 !== '' ? (
       <Image
-        style={[countryPickerStyles.imgStyle, imageStyle]}
+        style={[styles.imgStyle, imageStyle]}
         source={{ uri: countries[cca2].flag }}
       />
     ) : null
@@ -116,7 +116,7 @@ export default class CountryPicker extends Component {
 
   static renderFlag(cca2, itemStyle, emojiStyle, imageStyle) {
     return (
-      <View style={[countryPickerStyles.itemCountryFlag, itemStyle]}>
+      <View style={[styles.itemCountryFlag, itemStyle]}>
         {isEmojiable
           ? CountryPicker.renderEmojiFlag(cca2, emojiStyle)
           : CountryPicker.renderImageFlag(cca2, imageStyle)}
@@ -325,9 +325,8 @@ export default class CountryPicker extends Component {
     const country = countries[cca2]
     return (
       <View style={styles.itemCountry}>
-        {CountryPicker.renderFlag(cca2)}
-        <View style={styles.itemCountryName}>
-          <Text style={styles.countryName} allowFontScaling={false}>
+        <View style={[styles.itemCountryName,{flex:1}]}>
+          <Text style={[styles.countryName,{marginLeft:10}]} allowFontScaling={false}>
             {this.getCountryName(country)}
             {this.props.showCallingCode &&
             country.callingCode &&
@@ -366,6 +365,7 @@ export default class CountryPicker extends Component {
   }
 
   render() {
+    const country = countries[this.props.cca2]
     return (
       <View style={styles.container}>
         <TouchableOpacity
@@ -379,10 +379,7 @@ export default class CountryPicker extends Component {
             <View
               style={[styles.touchFlag, { marginTop: isEmojiable ? 0 : 5 }]}
             >
-              {CountryPicker.renderFlag(this.props.cca2,
-                styles.itemCountryFlag,
-                styles.emojiFlag,
-                styles.imgStyle)}
+              <Text style={{letterSpacing:2,fontSize:20}}>{`+${country.callingCode} ${this.props.cca2}`}</Text>
             </View>
           )}
         </TouchableOpacity>
