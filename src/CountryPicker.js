@@ -379,7 +379,7 @@ export default class CountryPicker extends Component {
             <View
               style={[styles.touchFlag, { marginTop: isEmojiable ? 0 : 5 }]}
             >
-              <Text style={{letterSpacing:2,fontSize:20}}>{`+${country.callingCode} ${this.props.cca2}`}</Text>
+              <Text style={{letterSpacing:2,fontSize:20}}>{`+${country.callingCode} ${this.props.cca2} `}<Image source={require('./arrow-down.png')} /></Text>
             </View>
           )}
         </TouchableOpacity>
